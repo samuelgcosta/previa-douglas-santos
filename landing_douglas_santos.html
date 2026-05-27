@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Douglas Santos — Advogado Criminalista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ─────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:     #0D1117;
+    --ink-2:   #1E2733;
+    --ink-3:   #3D4A5C;
+    --mid:     #6B7A8D;
+    --muted:   #9AA3AE;
+    --border:  #DDE2E8;
+    --surface: #F7F8FA;
+    --white:   #FFFFFF;
+    --blue:    #1A4FCC;
+    --blue-lt: #EEF3FF;
+    --gold:    #B08D57;
+
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+
+    --max: 1100px;
+    --gutter: 40px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--white);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* ── FADE-IN ANIMATIONS ───────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── NAV ──────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+  .nav-logo span {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--white) !important;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-pill:hover { background: var(--blue); transform: scale(1.02); }
+  .btn-pill .dot {
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    padding-top: 140px;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-headline {
+    text-align: center;
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6.5vw, 5.2rem);
+    font-weight: 400;
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: 32px;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .hero-cta-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 70px;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 13px 28px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--blue); transform: scale(1.02); }
+  .btn-primary .dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+
+  .hero-link {
+    font-size: 0.82rem;
+    color: var(--ink-3);
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .hero-link:hover { color: var(--blue); }
+
+  /* HERO GRID — foto central + microtextos flanqueando */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px 1fr;
+    gap: 40px;
+    align-items: end;
+    animation: fadeIn 1.1s 0.3s ease both;
+  }
+
+  .hero-micro {
+    padding-bottom: 60px;
+  }
+  .hero-micro p {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .hero-micro-contacts {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 8px;
+  }
+  .hero-micro-contacts p {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin: 0;
+  }
+  .hero-micro-contacts strong {
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-micro-right { text-align: right; }
+  .hero-micro-right p { margin-left: auto; }
+
+  .hero-photo-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-photo-bg {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border-radius: 12px 12px 0 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  /* Silhueta placeholder */
+  .hero-photo-bg::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    height: 90%;
+    background: linear-gradient(180deg, #C8D4E8 0%, #A0B4CC 100%);
+    border-radius: 200px 200px 0 0;
+    opacity: 0.55;
+  }
+  .hero-photo-bg::after {
+    content: 'FOTO DO ADVOGADO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--mid);
+    font-weight: 500;
+  }
+
+  .hero-badge {
+    margin-top: 16px;
+    text-align: center;
+  }
+  .hero-badge p {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .hero-badge strong {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .hero-badge small {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--mid);
+    margin-top: 2px;
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 0 50px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-val {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-top: 6px;
+  }
+
+  /* ── SECTION SHARED STYLES ────────────────────────── */
+  section { padding: 100px 0; }
+
+  .section-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .section-eyebrow.center { text-align: center; }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .section-title.center { text-align: center; }
+
+  .section-sub {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.75;
+    max-width: 560px;
+  }
+  .section-sub.center { text-align: center; margin: 0 auto; }
+
+  /* ── ÁREAS DE ATUAÇÃO ─────────────────────────────── */
+  .areas { background: var(--white); }
+
+  .areas-header { text-align: center; margin-bottom: 64px; }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1px;
+  }
+  .areas-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+
+  .area-card {
+    background: var(--white);
+    padding: 36px 32px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .area-card:hover { background: var(--surface); }
+
+  .area-card.featured {
+    background: var(--ink);
+  }
+  .area-card.featured:hover { background: var(--ink-2); }
+
+  .area-card.integrated {
+    background: var(--blue-lt);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .area-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .area-card.featured .area-num { color: rgba(255,255,255,0.35); }
+
+  .area-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .area-card.featured .area-title { color: var(--white); }
+  .area-card.integrated .area-title { color: var(--blue); font-size: 1.1rem; }
+
+  .area-desc {
+    font-size: 0.8rem;
+    color: var(--mid);
+    line-height: 1.75;
+  }
+  .area-card.featured .area-desc { color: rgba(255,255,255,0.55); }
+  .area-card.integrated .area-desc { color: var(--ink-3); font-size: 0.82rem; }
+
+  .area-arrow {
+    position: absolute;
+    top: 36px; right: 32px;
+    font-size: 0.75rem;
+    color: var(--border);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .area-card:hover .area-arrow { color: var(--blue); transform: translate(3px, -3px); }
+  .area-card.featured .area-arrow { color: rgba(255,255,255,0.2); }
+  .area-card.featured:hover .area-arrow { color: rgba(255,255,255,0.8); }
+
+  /* ── BIO ──────────────────────────────────────────── */
+  .bio { background: var(--white); padding-top: 0; }
+
+  .bio-inner {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .bio-photo {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bio-photo::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 85%;
+    background: linear-gradient(180deg, #B8C8DC 0%, #8EA4BC 100%);
+    border-radius: 200px 200px 0 0;
+    opacity: 0.6;
+  }
+  .bio-photo::after {
+    content: 'FOTO DO ADVOGADO';
+    position: absolute;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--mid);
+    font-weight: 500;
+  }
+
+  .bio-content { padding-top: 8px; }
+
+  .bio-name {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  .bio-intro {
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 36px;
+    max-width: 500px;
+  }
+
+  .cred-list { list-style: none; margin-bottom: 36px; }
+  .cred-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cred-item:first-child { border-top: 1px solid var(--border); }
+  .cred-icon {
+    font-size: 0.85rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+    width: 20px;
+  }
+  .cred-text strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .cred-text small {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .bio-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--blue);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: gap 0.2s;
+  }
+  .bio-cta:hover { gap: 14px; }
+
+  /* ── CONVERSÃO ────────────────────────────────────── */
+  .conversion {
+    background: var(--surface);
+    padding: 100px 0;
+  }
+
+  .conversion-inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .conversion-left {}
+
+  .conversion-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .conversion-sub {
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 14px 30px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-whatsapp:hover { background: #128C7E; transform: scale(1.02); }
+  .btn-whatsapp svg { width: 16px; height: 16px; }
+
+  .conversion-photo {
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+    background: var(--ink-3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conversion-photo::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 85%;
+    background: linear-gradient(180deg, #4A5F78 0%, #2E3F52 100%);
+    border-radius: 200px 200px 0 0;
+  }
+  .conversion-photo::after {
+    content: 'FOTO DO ADVOGADO';
+    position: absolute;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.35);
+    font-weight: 500;
+  }
+
+  /* ── CONTATO ──────────────────────────────────────── */
+  .contact { background: var(--white); }
+
+  .contact-header { text-align: center; margin-bottom: 64px; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .contact-col-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+    gap: 16px;
+  }
+  .contact-item:first-of-type { border-top: 1px solid var(--border); }
+  .contact-item:hover .contact-arrow { transform: translate(3px, -3px); color: var(--blue); }
+
+  .contact-item-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .contact-item-value {
+    font-size: 0.85rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .contact-arrow {
+    font-size: 0.75rem;
+    color: var(--border);
+    margin-top: 2px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .contact-map {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Grid lines simulando mapa */
+  .contact-map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.6;
+  }
+  .map-pin {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .map-pin-dot {
+    width: 14px; height: 14px;
+    background: var(--blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(26,79,204,0.15);
+  }
+  .map-pin-label {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    color: var(--ink);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: var(--white);
+    padding: 80px 0 40px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 40px;
+  }
+
+  .footer-brand {}
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .footer-logo span {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+  }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 260px;
+  }
+  .footer-oab {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+  }
+
+  .footer-col-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer-copy {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.25);
+  }
+  .footer-cta-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 8px 20px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .footer-cta-bar:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+  .footer-cta-bar .dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+
+  /* ── FAQ SECTION ──────────────────────────────────── */
+  .faq { background: var(--surface); }
+
+  .faq-header { text-align: center; margin-bottom: 56px; }
+
+  .faq-list { max-width: 740px; margin: 0 auto; }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-item:first-child { border-top: 1px solid var(--border); }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .faq-question-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .faq-icon {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--mid);
+    transition: all 0.3s;
+  }
+  .faq-item.open .faq-icon {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--white);
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 400px;
+    padding-bottom: 22px;
+  }
+  .faq-answer p {
+    font-size: 0.84rem;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+
+  /* ── URGENCY BANNER ───────────────────────────────── */
+  .urgency {
+    background: var(--ink);
+    padding: 80px 0;
+  }
+  .urgency-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+  .urgency-headline {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .urgency-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+    max-width: 480px;
+  }
+  .urgency-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+  .btn-urgent {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .btn-urgent:hover { background: #e8f5e9; transform: scale(1.02); }
+  .btn-urgent .dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  .urgency-tel {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SCROLL TO TOP ────────────────────────────────── */
+  #scrollTop {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 42px; height: 42px;
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 99;
+  }
+  #scrollTop.show { opacity: 1; transform: translateY(0); }
+  #scrollTop:hover { background: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVEGAÇÃO ══════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <div class="nav-logo">
+      Douglas Santos
+      <span>OAB/SP 438.577</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#areas">Atuação</a></li>
+      <li><a href="#sobre">O Advogado</a></li>
+      <li><a href="#processo">Como Funciona</a></li>
+      <li><a href="#faq">Dúvidas</a></li>
+      <li><a href="#contato">Fale Agora</a></li>
+    </ul>
+    <a href="https://wa.me/5511954195262" class="btn-pill">
+      <span class="dot"></span>
+      Fale Conosco
+    </a>
+  </div>
+</nav>
+
+
+<!-- ══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+
+    <p class="hero-eyebrow">Advocacia Criminal &amp; Consultoria Jurídica Empresarial</p>
+
+    <h1 class="hero-headline">
+      Defesa criminal<br>
+      estratégica, precisa e<br>
+      <em>comprometida.</em>
+    </h1>
+
+    <div class="hero-cta-row">
+      <a href="https://wa.me/5511954195262" class="btn-primary">
+        <span class="dot"></span>
+        Fale agora pelo WhatsApp
+      </a>
+      <a href="#sobre" class="hero-link">Conheça o advogado →</a>
+    </div>
+
+    <div class="hero-grid">
+      <!-- Microtexto esquerdo -->
+      <div class="hero-micro">
+        <p>Douglas Santos é especialista em Direito Penal Econômico pela FGV e mestrando pelo IDP, com formação complementar na Universidade de Coimbra. Atuação focada, formação técnica diferenciada e dedicação integral em cada fase do processo.</p>
+        <div class="hero-micro-contacts">
+          <p><strong>Atendimento 24h · São Paulo e todo o Brasil</strong>Defesa desde o inquérito policial até os Tribunais Superiores.</p>
+        </div>
+      </div>
+
+      <!-- Foto central -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-bg"></div>
+        <div class="hero-badge">
+          <p>OAB/SP 438.577</p>
+          <strong>Douglas Santos</strong>
+          <small>Advogado Criminalista · FGV · IDP · IBCCRIM</small>
+        </div>
+      </div>
+
+      <!-- Microtexto direito -->
+      <div class="hero-micro hero-micro-right">
+        <p>Atendimento a pessoas físicas e jurídicas em todas as fases da persecução penal — do flagrante ao trânsito em julgado.</p>
+        <div class="hero-micro-contacts" style="text-align:right">
+          <p><strong>(11) 95419-5262</strong>OAB/SP 438.577 · São Paulo/SP</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-val">+6</div>
+        <div class="stat-label">Anos de atuação</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">24h</div>
+        <div class="stat-label">Plantão de urgência</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">Brasil</div>
+        <div class="stat-label">Atendimento online</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ ÁREAS DE ATUAÇÃO ═══════════════════════════════════ -->
+<section class="areas" id="areas">
+  <div class="container">
+    <div class="areas-header reveal">
+      <p class="section-eyebrow center">Especialidades</p>
+      <h2 class="section-title center">Três frentes de atuação,<br>uma defesa completa.</h2>
+      <p class="section-sub center">Direito Penal, Penal Econômico e Compliance — atuação coordenada para proteger pessoas e empresas em cada fase da persecução.</p>
+    </div>
+
+    <div class="areas-grid reveal">
+      <!-- 01 -->
+      <div class="area-card">
+        <div class="area-num">01</div>
+        <h3 class="area-title">Direito e Processo Penal</h3>
+        <p class="area-desc">Defesa de acusados e assistência à vítima em toda a persecução penal — do inquérito ao STJ. Habeas corpus, custódia, prisão preventiva, nulidades e execução penal.</p>
+        <span class="area-arrow">↗</span>
+      </div>
+      <!-- 02 — destaque -->
+      <div class="area-card featured">
+        <div class="area-num">02</div>
+        <h3 class="area-title">Direito Penal Econômico</h3>
+        <p class="area-desc">Crimes tributários, financeiros, licitatórios, ambientais, falimentares, lavagem de capitais e delitos contra a administração pública. Formação específica na FGV, IDP e Universidade de Coimbra.</p>
+        <span class="area-arrow">↗</span>
+      </div>
+      <!-- 03 -->
+      <div class="area-card">
+        <div class="area-num">03</div>
+        <h3 class="area-title">Compliance Criminal</h3>
+        <p class="area-desc">Assessoria preventiva para empresas e executivos. Diagnóstico de risco penal, programas de integridade, processos administrativos e sancionatórios.</p>
+        <span class="area-arrow">↗</span>
+      </div>
+    </div>
+
+    <div class="areas-grid-2 reveal">
+      <!-- 04 -->
+      <div class="area-card">
+        <div class="area-num">04</div>
+        <h3 class="area-title">Consultivo &amp; Estratégico</h3>
+        <p class="area-desc">Pareceres criminais, análise de contratos com implicação penal, orientação em investigações administrativas e planejamento preventivo para gestores e executivos.</p>
+        <span class="area-arrow">↗</span>
+      </div>
+      <!-- 05 vazio/placeholder -->
+      <div class="area-card" style="background:var(--surface);">
+        <div class="area-num">05</div>
+        <h3 class="area-title" style="color:var(--mid);">Recursos e Revisão</h3>
+        <p class="area-desc">Recursos especiais e extraordinários, revisão criminal e habeas corpus nos Tribunais Superiores. Atuação técnica nas instâncias mais elevadas do sistema judicial.</p>
+        <span class="area-arrow">↗</span>
+      </div>
+      <!-- Card integrado -->
+      <div class="area-card integrated">
+        <p class="area-title">→ Soluções Integradas</p>
+        <p class="area-desc">Cada caso é único — abordagem multidisciplinar que une as três frentes de atuação para uma defesa coesa, completa e estratégica.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ BIO ════════════════════════════════════════════════ -->
+<section class="bio" id="sobre">
+  <div class="container">
+    <div class="bio-inner">
+
+      <div class="bio-photo reveal"></div>
+
+      <div class="bio-content reveal">
+        <p class="section-eyebrow">O Advogado</p>
+        <h2 class="bio-name">Douglas Santos.</h2>
+        <p class="bio-intro">Advogado criminalista com especialização em Direito Penal Econômico e Compliance. Formação acadêmica construída nas principais instituições do país e com extensão internacional em Portugal. Atende presencialmente em São Paulo e presta assessoria para clientes em todo o Brasil.</p>
+
+        <ul class="cred-list">
+          <li class="cred-item">
+            <span class="cred-icon">🎓</span>
+            <div class="cred-text">
+              <strong>Graduado em Direito — UNIP</strong>
+              <small>Universidade Paulista, São Paulo</small>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-icon">⚖</span>
+            <div class="cred-text">
+              <strong>Especialista em Direito Penal Econômico — FGV</strong>
+              <small>Fundação Getulio Vargas</small>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-icon">📋</span>
+            <div class="cred-text">
+              <strong>Especialista em Compliance — PUC-RS</strong>
+              <small>Pontifícia Universidade Católica do Rio Grande do Sul</small>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-icon">🔬</span>
+            <div class="cred-text">
+              <strong>Mestrando em Direito Penal Econômico — IDP</strong>
+              <small>Instituto Brasiliense de Direito Público, Brasília</small>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-icon">🌍</span>
+            <div class="cred-text">
+              <strong>Extensão em Direito Penal Econômico — Coimbra / IBCCRIM</strong>
+              <small>Universidade de Coimbra, Portugal</small>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-icon">🏛</span>
+            <div class="cred-text">
+              <strong>Membro da Comissão de Compliance — OAB/SP</strong>
+              <small>Instituto Brasileiro de Ciências Criminais — IBCCRIM</small>
+            </div>
+          </li>
+        </ul>
+
+        <a href="https://wa.me/5511954195262" class="bio-cta">
+          Fale com o Dr. Douglas <span>→</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SEÇÃO DE CONVERSÃO ═════════════════════════════════ -->
+<section class="conversion" id="processo">
+  <div class="container">
+    <div class="conversion-inner">
+
+      <div class="conversion-left reveal">
+        <p class="section-eyebrow">Atendimento imediato</p>
+        <h2 class="conversion-headline">
+          Seu caso merece<br>
+          análise imediata<br>
+          e defesa precisa.
+        </h2>
+        <p class="conversion-sub">Entre em contato e receba orientação jurídica clara sobre a sua situação. Atendemos com agilidade e o sigilo absoluto que cada caso exige — do primeiro contato à resolução.</p>
+        <a href="https://wa.me/5511954195262" class="btn-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar pelo WhatsApp
+        </a>
+      </div>
+
+      <div class="conversion-photo reveal"></div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FAQ ════════════════════════════════════════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <p class="section-eyebrow center">Tire suas dúvidas</p>
+      <h2 class="section-title center">Perguntas frequentes.</h2>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Posso ser preso? Qual é o risco real no meu caso?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>O risco de prisão decorre de uma combinação de fatores: natureza do crime, existência de flagrante, histórico criminal, risco de fuga ou de interferência nas investigações. Cada situação possui variáveis próprias que só uma avaliação técnica precisa pode dimensionar. Somente um advogado especializado em Direito Penal consegue analisar os elementos do seu caso e indicar, com clareza, os riscos reais e as medidas cabíveis. Entre em contato para uma avaliação sigilosa.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Quanto custa contratar um advogado criminalista?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Os honorários variam conforme a complexidade do caso, as instâncias envolvidas e o trabalho necessário em cada fase. O equívoco mais comum — e mais custoso — é selecionar advogado pelo menor preço: em Direito Penal, uma defesa tecnicamente insuficiente pode comprometer a liberdade do cliente. A consulta inicial é gratuita. Após compreendermos integralmente o seu caso, apresentamos uma proposta clara, justa e detalhada.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Quanto tempo dura um processo criminal?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>A duração é altamente variável. Infrações de menor potencial ofensivo podem ser encerradas em meses. Crimes tributários, de lavagem de capitais ou de organização criminosa podem tramitar por anos nas diversas instâncias. Uma defesa bem conduzida pode antecipar decisões favoráveis, prevenir prisões cautelares desnecessárias e reduzir significativamente o tempo de exposição do cliente ao processo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">O sigilo das informações que compartilho é garantido?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sim, de forma absoluta. O sigilo profissional entre advogado e cliente é um direito fundamental e um dever ético irrenunciável, assegurado pelo Estatuto da OAB e pelo Código de Ética e Disciplina. Tudo que você compartilhar conosco — por WhatsApp, e-mail ou em consulta presencial — está protegido pelo sigilo legal e jamais poderá ser utilizado contra você.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Você atende em todo o Brasil ou apenas em São Paulo?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>O escritório está sediado em São Paulo, onde realizamos atendimentos presenciais. Para clientes de outros estados, o atendimento é conduzido remotamente com a mesma qualidade técnica. Em casos que demandem presença física fora de São Paulo, podemos nos deslocar ou indicar advogado correspondente de confiança para os atos presenciais.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">O que é Compliance Criminal e por que minha empresa precisa?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Compliance Criminal é um conjunto estruturado de mecanismos preventivos voltado a proteger empresas e seus gestores da responsabilização penal por irregularidades internas. Com a intensificação da fiscalização de crimes tributários, financeiros e licitatórios, um programa de integridade bem estruturado reduz substancialmente o risco de investigações, de acordos de leniência compulsórios e de responsabilização pessoal de executivos.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ BANNER DE URGÊNCIA ═════════════════════════════════ -->
+<section class="urgency">
+  <div class="container">
+    <div class="urgency-inner reveal">
+      <div>
+        <h2 class="urgency-headline">Preso em flagrante?<br>Cada hora define o<br>rumo do processo.</h2>
+        <p class="urgency-sub">As primeiras horas após uma prisão são determinantes. As decisões tomadas — ou omitidas — nesse intervalo condicionam toda a trajetória processual. Não enfrente esse momento sem orientação especializada.</p>
+      </div>
+      <div class="urgency-actions">
+        <a href="https://wa.me/5511954195262" class="btn-urgent">
+          <span class="dot"></span>
+          Atendimento de emergência
+        </a>
+        <span class="urgency-tel">(11) 95419-5262 · Plantão 24h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CONTATO ════════════════════════════════════════════ -->
+<section class="contact" id="contato">
+  <div class="container">
+    <div class="contact-header reveal">
+      <p class="section-eyebrow center">Fale Conosco</p>
+      <h2 class="section-title center">Entre em contato.</h2>
+      <p class="section-sub center">Respondemos em até 10 minutos. Para urgências como prisão em flagrante, o atendimento é imediato, 24 horas por dia.</p>
+    </div>
+
+    <div class="contact-grid reveal">
+
+      <!-- Coluna 1 — dados de contato -->
+      <div>
+        <p class="contact-col-title">Canais de atendimento</p>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">WhatsApp</p>
+            <p class="contact-item-value">(11) 95419-5262</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">E-mail</p>
+            <p class="contact-item-value">santos_douglas@outlook.com</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">Urgências</p>
+            <p class="contact-item-value">Plantão 24h — Flagrante e Habeas Corpus</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+      </div>
+
+      <!-- Coluna 2 — mapa -->
+      <div>
+        <p class="contact-col-title">Escritório em São Paulo</p>
+        <div class="contact-map">
+          <div class="map-pin">
+            <div class="map-pin-dot"></div>
+            <div class="map-pin-label">Av. Diederichsen, 1.100</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna 3 — endereço + redes -->
+      <div>
+        <p class="contact-col-title">Endereço e redes</p>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">Endereço</p>
+            <p class="contact-item-value">Av. Diederichsen, 1.100, Conj. 55<br>Vila Guarani — São Paulo/SP</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">Instagram</p>
+            <p class="contact-item-value">@dsadv</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+
+        <div class="contact-item">
+          <div>
+            <p class="contact-item-label">OAB</p>
+            <p class="contact-item-value">OAB/SP 438.577</p>
+          </div>
+          <span class="contact-arrow">↗</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ═════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Marca -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          Douglas Santos
+          <span>Advocacia Criminal</span>
+        </div>
+        <p class="footer-tagline">Advocacia criminal com atuação técnica, estratégica e comprometida. Especialista em Direito Penal, Penal Econômico e Compliance.</p>
+        <p class="footer-oab">OAB/SP 438.577</p>
+      </div>
+
+      <!-- Atuação -->
+      <div>
+        <p class="footer-col-title">Atuação</p>
+        <ul class="footer-links">
+          <li><a href="#areas">Direito e Processo Penal</a></li>
+          <li><a href="#areas">Direito Penal Econômico</a></li>
+          <li><a href="#areas">Compliance Criminal</a></li>
+          <li><a href="#areas">Casos Atendidos</a></li>
+        </ul>
+      </div>
+
+      <!-- Navegação -->
+      <div>
+        <p class="footer-col-title">Navegação</p>
+        <ul class="footer-links">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#processo">Como Funciona</a></li>
+          <li><a href="#faq">Dúvidas</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <!-- Contato -->
+      <div>
+        <p class="footer-col-title">Contato</p>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/5511954195262">(11) 95419-5262</a></li>
+          <li><a href="mailto:santos_douglas@outlook.com">santos_douglas@outlook.com</a></li>
+          <li><a href="#">Av. Diederichsen, 1.100 — SP</a></li>
+          <li><a href="https://instagram.com/dsadv">@dsadv</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Douglas Santos Advocacia — Todos os direitos reservados. OAB/SP 438.577</p>
+      <a href="https://wa.me/5511954195262" class="footer-cta-bar">
+        <span class="dot"></span>
+        Fale agora — resposta em 10 min
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+
+<script>
+  // ── NAV scroll shadow ──────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+    scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+  });
+
+  // ── Reveal on scroll ──────────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ── FAQ accordion ─────────────────────────────────────
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Smooth active nav highlight ───────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+    });
+  });
+</script>
+</body>
+</html>
